@@ -211,21 +211,24 @@ Join our Discord if you have any questions</p>
         style="width: 100%; padding: 8px; margin: 10px 0; box-sizing: border-box;"
       >
 
-      <!-- Placeholder items you can edit / duplicate -->
-      <div class="ts-item">
-        <h3>Example Issue: Macro freezing</h3>
-        <p>Description of issue goes here. Replace this with your real troubleshooting text later.</p>
-      </div>
+      <!-- Container so we can reorder items by score -->
+      <div id="ts-container">
+        <!-- Placeholder items you can edit / duplicate -->
+        <div class="ts-item">
+          <h3>Example Issue: Macro freezing</h3>
+          <p>Description of issue goes here. Replace this with your real troubleshooting text later.</p>
+        </div>
 
-      <div class="ts-item">
-        <h3>Example Issue: Character misalignment</h3>
-        <p>Description of issue goes here. Replace this with your real troubleshooting text later.</p>
+        <div class="ts-item">
+          <h3>Example Issue: Character misalignment</h3>
+          <p>Description of issue goes here. Replace this with your real troubleshooting text later.</p>
+        </div>
       </div>
 
     </div>
   </div>
 
-  <!-- TAB SWITCHING + SEARCH SCRIPT -->
+  <!-- TAB SWITCHING + SMARTER SEARCH SCRIPT -->
   <script>
     function openTab(name) {
       document.querySelectorAll('.tab-content').forEach(div => div.classList.remove('active'));
@@ -235,17 +238,67 @@ Join our Discord if you have any questions</p>
       document.querySelector(`[data-tab="${name}"]`).classList.add('active');
     }
 
-    // Simple keyword filter for Troubleshooting tab
-    function filterTroubleshooting() {
-      const query = document.getElementById('ts-search').value.toLowerCase();
+    // --- SMARTER SEARCH SETUP ---
+
+    // Normalize text: lowercase, strip accents
+    function normalize(str) {
+      return str
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/\p{Diacritic}/gu, "");
+    }
+
+    // Index of troubleshooting items
+    let tsIndex = [];
+
+    window.addEventListener('DOMContentLoaded', () => {
       const items = document.querySelectorAll('#troubleshooting .ts-item');
 
-      items.forEach(item => {
-        const text = item.textContent.toLowerCase();
-        item.style.display = text.includes(query) ? '' : 'none';
+      tsIndex = Array.from(items).map(item => {
+        const titleEl = item.querySelector('h3');
+        const title = titleEl ? normalize(titleEl.textContent) : "";
+        const text = normalize(item.textContent);
+        return { item, title, text };
       });
+    });
+
+    function filterTroubleshooting() {
+      const input = document.getElementById('ts-search').value.trim();
+
+      // If search box empty, show everything in original order
+      if (!input) {
+        tsIndex.forEach(({ item }) => {
+          item.style.display = '';
+          item.dataset.score = 0;
+        });
+        return;
+      }
+
+      const q = normalize(input);
+      const tokens = q.split(/\s+/).filter(t => t.length > 1); // ignore 1-letter words
+
+      tsIndex.forEach(({ item, title, text }) => {
+        let score = 0;
+
+        tokens.forEach(tok => {
+          if (title.includes(tok)) score += 3; // title matches weighted higher
+          if (text.includes(tok)) score += 1;  // body matches
+        });
+
+        item.dataset.score = score;
+        item.style.display = score > 0 ? '' : 'none';
+      });
+
+      // Reorder visible items by score (best matches first)
+      const container = document.getElementById('ts-container');
+      const visible = tsIndex
+        .filter(obj => obj.item.style.display !== 'none' && Number(obj.item.dataset.score) > 0)
+        .sort((a, b) => Number(b.item.dataset.score) - Number(a.item.dataset.score));
+
+      visible.forEach(({ item }) => container.appendChild(item));
     }
   </script>
 
 </body>
 </html>
+
