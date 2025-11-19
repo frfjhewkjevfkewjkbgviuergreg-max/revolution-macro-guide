@@ -201,11 +201,31 @@ Join our Discord if you have any questions</p>
   <div id="troubleshooting" class="tab-content">
     <div class="stackedit__html">
       <h2>Troubleshooting</h2>
-      <p>Add troubleshooting info here.</p>
+
+      <!-- Search bar -->
+      <input
+        type="text"
+        id="ts-search"
+        placeholder="Search troubleshooting..."
+        oninput="filterTroubleshooting()"
+        style="width: 100%; padding: 8px; margin: 10px 0; box-sizing: border-box;"
+      >
+
+      <!-- Placeholder items you can edit / duplicate -->
+      <div class="ts-item">
+        <h3>Example Issue: Macro freezing</h3>
+        <p>Description of issue goes here. Replace this with your real troubleshooting text later.</p>
+      </div>
+
+      <div class="ts-item">
+        <h3>Example Issue: Character misalignment</h3>
+        <p>Description of issue goes here. Replace this with your real troubleshooting text later.</p>
+      </div>
+
     </div>
   </div>
 
-  <!-- TAB SWITCHING SCRIPT -->
+  <!-- TAB SWITCHING + SEARCH SCRIPT -->
   <script>
     function openTab(name) {
       document.querySelectorAll('.tab-content').forEach(div => div.classList.remove('active'));
@@ -214,8 +234,18 @@ Join our Discord if you have any questions</p>
       document.getElementById(name).classList.add('active');
       document.querySelector(`[data-tab="${name}"]`).classList.add('active');
     }
+
+    // Simple keyword filter for Troubleshooting tab
+    function filterTroubleshooting() {
+      const query = document.getElementById('ts-search').value.toLowerCase();
+      const items = document.querySelectorAll('#troubleshooting .ts-item');
+
+      items.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(query) ? '' : 'none';
+      });
+    }
   </script>
 
 </body>
 </html>
-
