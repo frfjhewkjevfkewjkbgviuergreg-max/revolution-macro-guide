@@ -198,106 +198,137 @@ Join our Discord if you have any questions</p>
   </div>
 
   <!-- TAB 2: TROUBLESHOOTING -->
-  <div id="troubleshooting" class="tab-content">
-    <div class="stackedit__html">
-      <h2>Troubleshooting</h2>
+<div id="troubleshooting" class="tab-content">
+  <div class="stackedit__html">
+    <h2>Troubleshooting</h2>
 
-      <!-- Search bar -->
-      <input
-        type="text"
-        id="ts-search"
-        placeholder="Search troubleshooting..."
-        oninput="filterTroubleshooting()"
-        style="width: 100%; padding: 8px; margin: 10px 0; box-sizing: border-box;"
-      >
+    <input id="ts-search" type="text" placeholder="Search troubleshooting..."
+      style="width:100%; max-width:900px; padding:12px; font-size:16px; border:2px solid #111; border-radius:6px; margin:18px 0;" />
 
-      <!-- Container so we can reorder items by score -->
-      <div id="ts-container">
-        <!-- Placeholder items you can edit / duplicate -->
-        <div class="ts-item">
-          <h3>Example Issue: Macro freezing</h3>
-          <p>Description of issue goes here. Replace this with your real troubleshooting text later.</p>
-        </div>
-
-        <div class="ts-item">
-          <h3>Example Issue: Character misalignment</h3>
-          <p>Description of issue goes here. Replace this with your real troubleshooting text later.</p>
-        </div>
-      </div>
-
-    </div>
+    <div id="ts-results"></div>
   </div>
+</div>
 
-  <!-- TAB SWITCHING + SMARTER SEARCH SCRIPT -->
-  <script>
-    function openTab(name) {
-      document.querySelectorAll('.tab-content').forEach(div => div.classList.remove('active'));
-      document.querySelectorAll('.tab-buttons button').forEach(btn => btn.classList.remove('active'));
+<script>
+  const TROUBLESHOOTING_URL =
+    "https://raw.githubusercontent.com/frfjhewkjevfkewjkbgviuergreg-max/revolution-macro-guide/main/troubleshooting.json";
 
-      document.getElementById(name).classList.add('active');
-      document.querySelector(`[data-tab="${name}"]`).classList.add('active');
+  const SYNONYMS = {
+    freeze: ["freezing", "stuck", "hang", "not responding", "macro stop"],
+    drift: ["drifting", "misalign", "misalignment", "off path", "sliding"],
+    crash: ["crashing", "close", "closed", "exit"],
+    lag: ["lagging", "slow", "fps", "stutter"]
+  };
+
+  let issues = [];
+
+  function expandSynonyms(query) {
+    query = query.toLowerCase();
+    const expanded = new Set(query.split(/\s+/));
+    for (const [key, list] of Object.entries(SYNONYMS)) {
+      if (query.includes(key) || list.some(w => query.includes(w))) {
+        expanded.add(key);
+        list.forEach(w => expanded.add(w));
+      }
+    }
+    return [...expanded];
+  }
+
+  function renderIssues(list) {
+    const container = document.getElementById("ts-results");
+    container.innerHTML = "";
+
+    if (!list.length) {
+      container.innerHTML = "<p>No matches yet.</p>";
+      return;
     }
 
-    // --- SMARTER SEARCH SETUP ---
+    for (const issue of list) {
+      const wrapper = document.createElement("div");
+      wrapper.style.border = "1px solid #ddd";
+      wrapper.style.borderRadius = "8px";
+      wrapper.style.padding = "12px 14px";
+      wrapper.style.marginBottom = "12px";
 
-    // Normalize text: lowercase, strip accents
-    function normalize(str) {
-      return str
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/\p{Diacritic}/gu, "");
+      const btn = document.createElement("button");
+      btn.textContent = issue.title || "Untitled fix";
+      btn.style.width = "100%";
+      btn.style.textAlign = "left";
+      btn.style.fontSize = "18px";
+      btn.style.fontWeight = "bold";
+      btn.style.border = "none";
+      btn.style.background = "transparent";
+      btn.style.cursor = "pointer";
+
+      const body = document.createElement("div");
+      body.style.display = "none";
+      body.style.marginTop = "8px";
+
+      const stepsHtml = Array.isArray(issue.steps) && issue.steps.length
+        ? `<p><b>Steps:</b></p><ol>${issue.steps.map(s => `<li>${s}</li>`).join("")}</ol>`
+        : "";
+
+      const notesHtml = issue.notes
+        ? `<p><b>Notes:</b><br>${String(issue.notes).replace(/\n/g,"<br>")}</p>`
+        : "";
+
+      const linksHtml = Array.isArray(issue.related_links) && issue.related_links.length
+        ? `<p><b>Related threads:</b><br>${issue.related_links.map(l => `<a href="${l}" target="_blank">${l}</a>`).join("<br>")}</p>`
+        : "";
+
+      body.innerHTML = `
+        ${issue.problem ? `<p><b>Problem:</b><br>${String(issue.problem).replace(/\n/g,"<br>")}</p>` : ""}
+        ${stepsHtml}
+        ${notesHtml}
+        ${linksHtml}
+        ${issue.url ? `<p><a href="${issue.url}" target="_blank">Original solved thread</a></p>` : ""}
+      `;
+
+      btn.onclick = () => {
+        body.style.display = body.style.display === "none" ? "block" : "none";
+      };
+
+      wrapper.appendChild(btn);
+      wrapper.appendChild(body);
+      container.appendChild(wrapper);
     }
+  }
 
-    // Index of troubleshooting items
-    let tsIndex = [];
+  async function loadIssues() {
+    try {
+      const res = await fetch(TROUBLESHOOTING_URL);
+      issues = await res.json();
+      renderIssues(issues);
+    } catch (e) {
+      document.getElementById("ts-results").innerHTML =
+        "<p>Failed to load troubleshooting list.</p>";
+      console.error(e);
+    }
+  }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const items = document.querySelectorAll('#troubleshooting .ts-item');
+  document.getElementById("ts-search").addEventListener("input", (e) => {
+    const q = e.target.value.trim();
+    if (!q) return renderIssues(issues);
 
-      tsIndex = Array.from(items).map(item => {
-        const titleEl = item.querySelector('h3');
-        const title = titleEl ? normalize(titleEl.textContent) : "";
-        const text = normalize(item.textContent);
-        return { item, title, text };
-      });
+    const expanded = expandSynonyms(q);
+
+    const filtered = issues.filter(issue => {
+      const hay = (
+        (issue.title || "") + " " +
+        (issue.problem || "") + " " +
+        (issue.steps || []).join(" ") + " " +
+        (issue.notes || "") + " " +
+        (issue.tags || []).join(" ")
+      ).toLowerCase();
+
+      return expanded.some(word => hay.includes(word));
     });
 
-    function filterTroubleshooting() {
-      const input = document.getElementById('ts-search').value.trim();
+    renderIssues(filtered);
+  });
 
-      // If search box empty, show everything in original order
-      if (!input) {
-        tsIndex.forEach(({ item }) => {
-          item.style.display = '';
-          item.dataset.score = 0;
-        });
-        return;
-      }
-
-      const q = normalize(input);
-      const tokens = q.split(/\s+/).filter(t => t.length > 1); // ignore 1-letter words
-
-      tsIndex.forEach(({ item, title, text }) => {
-        let score = 0;
-
-        tokens.forEach(tok => {
-          if (title.includes(tok)) score += 3; // title matches weighted higher
-          if (text.includes(tok)) score += 1;  // body matches
-        });
-
-        item.dataset.score = score;
-        item.style.display = score > 0 ? '' : 'none';
-      });
-
-      // Reorder visible items by score (best matches first)
-      const container = document.getElementById('ts-container');
-      const visible = tsIndex
-        .filter(obj => obj.item.style.display !== 'none' && Number(obj.item.dataset.score) > 0)
-        .sort((a, b) => Number(b.item.dataset.score) - Number(a.item.dataset.score));
-
-      visible.forEach(({ item }) => container.appendChild(item));
-    }
-  </script>
+  loadIssues();
+</script>
 
 </body>
 </html>
