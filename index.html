@@ -7,13 +7,16 @@
   <title>Revolution Macro Guide</title>
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
 
-  <!-- TAB STYLES -->
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
     .tab-buttons {
       display: flex;
       gap: 10px;
-      margin-bottom: 20px;
-      margin-top: 20px;
+      margin-bottom: 25px;
     }
 
     .tab-buttons button {
@@ -26,11 +29,7 @@
       transition: 0.2s;
     }
 
-    .tab-buttons button:hover {
-      background: #ccc;
-    }
-
-    .tab-buttons .active {
+    .tab-buttons button.active {
       background: #bbb;
       font-weight: bold;
     }
@@ -42,18 +41,36 @@
     .tab-content.active {
       display: block;
     }
+
+    .issue-block {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 8px;
+    }
+
+    .issue-title {
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .issue-body {
+      margin-top: 10px;
+      display: none;
+    }
   </style>
 </head>
 
-<body class="stackedit">
+<body>
 
   <!-- TAB BUTTONS -->
   <div class="tab-buttons">
-    <button class="active" data-tab="guide" onclick="openTab('guide')">Clickpath Guide</button>
-    <button data-tab="troubleshooting" onclick="openTab('troubleshooting')">Troubleshooting</button>
+    <button class="active" onclick="openTab('guide')">Clickpath Guide</button>
+    <button onclick="openTab('troubleshooting')">Troubleshooting</button>
   </div>
 
-  <!-- TAB 1: FULL ORIGINAL GUIDE -->
+  <!-- ==================== GUIDE TAB ==================== -->
   <div id="guide" class="tab-content active">
     <div class="stackedit__html">
 
@@ -61,6 +78,7 @@
 START - F1<br>
 PAUSE - F2<br>
 STOP - F3</p>
+
 <h2 id="tabs---6-in-total">Tabs - 6 in total</h2>
 <ul>
 <li>Gather Tab (1)</li>
@@ -70,266 +88,177 @@ STOP - F3</p>
 <li>Tools Tab (5)</li>
 <li>Settings Tab (6)</li>
 </ul>
+
 <hr>
+
 <h2 id="gather-tab-1">Gather Tab (1)</h2>
 <ul>
 <li>
 <p>Fields<br>
-To edit a field, click the pen icon, to paste pre-made settings, click the 6 dots icon, and click “Paste”. Find pre-made settings in the Discord server -&gt; #patterns-configs<br>
-– Editing the Field (Suggested to copy and paste pre-made settings from the Revolution Discord<br>
+To edit a field, click the pen icon, to paste pre-made settings, click the 6 dots icon, and click “Paste”. Find pre-made settings in the Discord server → #patterns-configs<br>
+– Editing the Field (Suggested to copy and paste pre-made settings from the Revolution Discord)<br>
 – Please ensure "Max Backpack" is set to "95%". Sometimes the macro stays in the field too long when the backpack is 100%, causing the macro to freak and reset.<br>
-Disable drift detection (uses supreme saturator to align char) -&gt; click the pen icon -&gt; click “align” under max backpack -&gt; disable</p>
+Disable drift detection (uses supreme saturator to align char) → click the pen icon → click “align” under max backpack → disable</p>
 </li>
-<li>
-<p>Boosts (Make sure sprinkler is in slot 1)</p>
-</li>
+
+<li><p>Boosts (Make sure sprinkler is in slot 1)</p></li>
+
 <li>
 <p>Settings<br>
-–General<br>
+– General<br>
 Set sprinkler to your current sprinkler in Bee Swarm<br>
 If you are blue and macro in Pinetree, enable “Use Fast Pine Return Path”<br>
 
-<img src="https://raw.githubusercontent.com/frfjhewkjevfkewjkbgviuergreg-max/revolution-macro-guide/main/a75cb73d-ee13-4d11-a7e0-d7961b6585cc.png" width="600"><br>
+<img src="a75cb73d-ee13-4d11-a7e0-d7961b6585cc.png" width="600"><br>
 
 Keep everything else the same<br>
-–Conversion<br>
+– Conversion<br>
 Customizable to your liking<br>
-<img src="https://raw.githubusercontent.com/frfjhewkjevfkewjkbgviuergreg-max/revolution-macro-guide/main/ce1129f9-c82b-4df0-a7c8-80ad812f32fc.png" width="600"><br>
 
+<img src="ce1129f9-c82b-4df0-a7c8-80ad812f32fc.png" width="600"><br>
 
-–Field Defaults<br>
-You don’t have to touch this</p>
+– Field Defaults<br>
+You don’t have to touch this
+</p>
 </li>
+
 <li>
 <p>AI Gather<br>
 – Settings<br>
-Enable “Use Full Model”, “Eco Mode” (Recommended) “Loot Mode” is optional<br>
-– Token Priority<br>
-Customizable to your liking</p>
+Enable “Use Full Model”, “Eco Mode” (Recommended). “Loot Mode” optional<br>
+– Token Priority (customizable)
+</p>
 </li>
 </ul>
+
 <hr>
+
 <h2 id="collect-tab-2">Collect Tab (2)</h2>
 <ul>
-<li>Dispensers<br>
-Enable “Wealth Clock”, “Glue Dispenser” and “Blueberry/Strawberry Dispenser” Others are optional</li>
-<li>Bug Run<br>
-If you have gifted vicious bee, set “Monster Respawn Percent” to “15%”</li>
-<li>Quests<br>
-If you lack Polar Power, enable. Priority can stay “0”</li>
-<li>Buffs<br>
-Sticker Stack -&gt; Optional<br>
-Mondo Chick -&gt;Recommended to enable Mondo Chick. Only enable the top one<br>
-HQ Boosters -&gt; Enable your designated booster color. Recommended to gather in boosted field.</li>
-<li>Bosses<br>
-WORK IN PROGRESS</li>
-<li>Blender<br>
-WORK IN PROGRESS</li>
+<li>Dispensers – Enable “Wealth Clock”, “Glue Dispenser”, “Blueberry/Strawberry Dispenser”</li>
+<li>Bug Run – If you have gifted vicious bee set respawn to 15%</li>
+<li>Quests – Enable if lacking Polar Power</li>
+<li>Buffs – Optional settings</li>
+<li>Bosses – WIP</li>
+<li>Blender – WIP</li>
 </ul>
+
 <hr>
+
 <h2 id="planters-tab-3">Planters Tab (3)</h2>
 <ul>
-<li>Duration (top left) Keep to “12” or “24” hours</li>
-<li>Clear Schedule - clears planter schedule (collect all planters before clearing)</li>
-<li>Refresh Schedule - refreshes planter schedule</li>
-<li>Settings - Recommended to enable “Gather Loot”, “Reset when Harvesting”<br>
-Keep timeline mode to “Timer”</li>
-<li>Auto Planters<br>
-–Settings -&gt; Enabled. Recommended to Harvest every “3” Hours. Set minimum and maximum to “3”<br>
-Keep everything else the same<br>
-–Nectar Goals -&gt; Find a nectar guide that correlates to the hours you macro<br>
-– Fields -&gt; Custom<br>
-– Planters -&gt; Custom (Recommended to place comforting nectar in bamboo, because bees sip nectar when macroing in Pinetree</li>
+<li>Duration 12–24 hours recommended</li>
+<li>Clear Schedule resets all</li>
+<li>Refresh Schedule refreshes all</li>
+<li>Enable “Gather Loot”, “Reset when Harvesting”</li>
+<li>Auto Planters → Enabled (Harvest every 3 hours)</li>
+<li>Nectar Goals → choose per your macro time</li>
+<li>Fields & Planters → Custom</li>
 </ul>
+
 <hr>
+
 <h2 id="status-tab-4">Status Tab (4)</h2>
 <ul>
-<li>Logs<br>
-Used to help troubleshoot macro problems</li>
-<li>Webhook<br>
-– How to connect your macro to a discord webhook (Recommended)</li>
+<li>Logs – troubleshooting</li>
+<li>Webhook – setup instructions</li>
 </ul>
-<ol>
-<li>Make a new discord server</li>
-<li>Edit/Press the gear icon on the “general” text channel (has gear icon on the right)</li>
-<li>Once you open text channel settings, go to integrations Click webhooks, and make a new webhook</li>
-<li>Copy the webhook url, and open Revolution Macro Paste the webhook url in the macro in the status tab&gt;webhook</li>
-<li>Add your discord ID for pings if something goes wrong (optional)</li>
-<li>To do step 5, turn on developer mode on Discord, and copy your ID and post it into the macro under webhooks</li>
-</ol>
+
 <hr>
+
 <h2 id="tools-tab-5">Tools Tab (5)</h2>
 <ul>
-<li>Auto Jelly<br>
-– Pick the bee you want the macro to auto-jelly, and select the features you want enabled</li>
-<li>RBC Gather<br>
-– Customizable to your needs</li>
-<li>Tad Sync<br>
-– Set up a relay in the settings tab -&gt; Networking -&gt; Available Relays -&gt; “+” icon</li>
-<li>Vic Hop (Server Hop optional)<br>
-– If you are doing Vic Hop with no searches, enable “Role” to “Main” so your account kills the vicious.<br>
-Enable everything in the “main” tab and disable everything in the “Searcher” tab. This is only if you aren’t using mains</li>
-<li>Mondo Hop<br>
-– Pretty much straightforward</li>
+<li>Auto Jelly</li>
+<li>RBC Gather</li>
+<li>Tad Sync</li>
+<li>Vic Hop</li>
+<li>Mondo Hop</li>
 </ul>
+
 <hr>
+
 <h2 id="settings-tab-6">Settings Tab (6)</h2>
 <ul>
-<li>Macro<br>
-– Appearance - Enable Dark Mode obv💀<br>
-– Hotkeys - Toggle what starts the macro (ex. F1, F2, F3 - Ctrl Q, Crtl W, Crtl E,)<br>
-– Capture - If your screen is flashing white, change “Preferred Capture Mode” to “Legacy Monitor”<br>
-– Misk - Don’t touch if not necessary</li>
-<li>Game<br>
-– Movement -&gt; Make sure Player Movespeed is correct (no haste activated). “Key Delay” should be “50”<br>
-– Routing -&gt; Enable High Alignment if your FPS is lower than 60. Check FPS by pressing Shift + F5<br>
-– Join -&gt; Set “Hive Claim Method” to “Detect”. You put your private server link in this category.</li>
-<li>Networking -&gt; USED FOR TAD SYNC</li>
-<li>Presets -&gt; Work in Progress</li>
-<li>Accounts -&gt; Work in Progress</li>
-<li>Credits - People who helped build the awesome macro</li>
+<li>Macro → Dark mode, hotkeys, capture mode, misc</li>
+<li>Game → Movement, routing, join</li>
+<li>Networking → Tad Sync</li>
+<li>Presets → WIP</li>
+<li>Accounts → WIP</li>
 </ul>
+
 <hr>
-<h2 id="revolution-macro-will-ask-you-if-you-want-to-update-if-there-is-a-new-version.-dont-redownload-revolution-macro.">Revolution Macro will ask you if you want to update if there is a new version. Don’t Redownload Revolution Macro.</h2>
-<p>Guide made by Draco, @litmg<br>
-Join our Discord if you have any questions</p>
+
+<h2>Revolution Macro will ask to update if a new version exists — DO NOT redownload.</h2>
+<p>Guide by Draco, @litmg<br>Join the Discord if you have questions.</p>
 
     </div>
   </div>
 
-  <!-- TAB 2: TROUBLESHOOTING -->
-<div id="troubleshooting" class="tab-content">
-  <div class="stackedit__html">
+  <!-- ==================== TROUBLESHOOTING TAB ==================== -->
+  <div id="troubleshooting" class="tab-content">
     <h2>Troubleshooting</h2>
 
-    <input id="ts-search" type="text" placeholder="Search troubleshooting..."
-      style="width:100%; max-width:900px; padding:12px; font-size:16px; border:2px solid #111; border-radius:6px; margin:18px 0;" />
+    <input id="search" type="text" placeholder="Search issues..." style="width:100%;padding:10px;font-size:16px;margin-bottom:20px;">
 
-    <div id="ts-results"></div>
+    <div id="issues"></div>
   </div>
-</div>
 
-<script>
-  const TROUBLESHOOTING_URL =
-    "https://raw.githubusercontent.com/frfjhewkjevfkewjkbgviuergreg-max/revolution-macro-guide/main/troubleshooting.json";
+  <!-- TAB SWITCH SYSTEM -->
+  <script>
+    function openTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-buttons button').forEach(el => el.classList.remove('active'));
+      document.getElementById(tab).classList.add('active');
+      document.querySelector(`.tab-buttons button[onclick="openTab('${tab}')"]`).classList.add('active');
+    }
 
-  const SYNONYMS = {
-    freeze: ["freezing", "stuck", "hang", "not responding", "macro stop"],
-    drift: ["drifting", "misalign", "misalignment", "off path", "sliding"],
-    crash: ["crashing", "close", "closed", "exit"],
-    lag: ["lagging", "slow", "fps", "stutter"]
-  };
-
-  let issues = [];
-
-  function expandSynonyms(query) {
-    query = query.toLowerCase();
-    const expanded = new Set(query.split(/\s+/));
-    for (const [key, list] of Object.entries(SYNONYMS)) {
-      if (query.includes(key) || list.some(w => query.includes(w))) {
-        expanded.add(key);
-        list.forEach(w => expanded.add(w));
+    async function loadIssues() {
+      try {
+        const response = await fetch('troubleshooting.json');
+        const data = await response.json();
+        displayIssues(data);
+      } catch (err) {
+        console.error("Error loading troubleshooting.json", err);
       }
     }
-    return [...expanded];
-  }
 
-  function renderIssues(list) {
-    const container = document.getElementById("ts-results");
-    container.innerHTML = "";
+    function displayIssues(issues) {
+      const container = document.getElementById('issues');
+      container.innerHTML = "";
 
-    if (!list.length) {
-      container.innerHTML = "<p>No matches yet.</p>";
-      return;
+      issues.forEach(issue => {
+        const block = document.createElement('div');
+        block.className = "issue-block";
+
+        const title = document.createElement('div');
+        title.className = "issue-title";
+        title.textContent = issue.title;
+
+        const body = document.createElement('div');
+        body.className = "issue-body";
+        body.textContent = issue.solution;
+
+        title.onclick = () => {
+          body.style.display = body.style.display === "none" ? "block" : "none";
+        };
+
+        block.appendChild(title);
+        block.appendChild(body);
+        container.appendChild(block);
+      });
     }
 
-    for (const issue of list) {
-      const wrapper = document.createElement("div");
-      wrapper.style.border = "1px solid #ddd";
-      wrapper.style.borderRadius = "8px";
-      wrapper.style.padding = "12px 14px";
-      wrapper.style.marginBottom = "12px";
-
-      const btn = document.createElement("button");
-      btn.textContent = issue.title || "Untitled fix";
-      btn.style.width = "100%";
-      btn.style.textAlign = "left";
-      btn.style.fontSize = "18px";
-      btn.style.fontWeight = "bold";
-      btn.style.border = "none";
-      btn.style.background = "transparent";
-      btn.style.cursor = "pointer";
-
-      const body = document.createElement("div");
-      body.style.display = "none";
-      body.style.marginTop = "8px";
-
-      const stepsHtml = Array.isArray(issue.steps) && issue.steps.length
-        ? `<p><b>Steps:</b></p><ol>${issue.steps.map(s => `<li>${s}</li>`).join("")}</ol>`
-        : "";
-
-      const notesHtml = issue.notes
-        ? `<p><b>Notes:</b><br>${String(issue.notes).replace(/\n/g,"<br>")}</p>`
-        : "";
-
-      const linksHtml = Array.isArray(issue.related_links) && issue.related_links.length
-        ? `<p><b>Related threads:</b><br>${issue.related_links.map(l => `<a href="${l}" target="_blank">${l}</a>`).join("<br>")}</p>`
-        : "";
-
-      body.innerHTML = `
-        ${issue.problem ? `<p><b>Problem:</b><br>${String(issue.problem).replace(/\n/g,"<br>")}</p>` : ""}
-        ${stepsHtml}
-        ${notesHtml}
-        ${linksHtml}
-        ${issue.url ? `<p><a href="${issue.url}" target="_blank">Original solved thread</a></p>` : ""}
-      `;
-
-      btn.onclick = () => {
-        body.style.display = body.style.display === "none" ? "block" : "none";
-      };
-
-      wrapper.appendChild(btn);
-      wrapper.appendChild(body);
-      container.appendChild(wrapper);
-    }
-  }
-
-  async function loadIssues() {
-    try {
-      const res = await fetch(TROUBLESHOOTING_URL);
-      issues = await res.json();
-      renderIssues(issues);
-    } catch (e) {
-      document.getElementById("ts-results").innerHTML =
-        "<p>Failed to load troubleshooting list.</p>";
-      console.error(e);
-    }
-  }
-
-  document.getElementById("ts-search").addEventListener("input", (e) => {
-    const q = e.target.value.trim();
-    if (!q) return renderIssues(issues);
-
-    const expanded = expandSynonyms(q);
-
-    const filtered = issues.filter(issue => {
-      const hay = (
-        (issue.title || "") + " " +
-        (issue.problem || "") + " " +
-        (issue.steps || []).join(" ") + " " +
-        (issue.notes || "") + " " +
-        (issue.tags || []).join(" ")
-      ).toLowerCase();
-
-      return expanded.some(word => hay.includes(word));
+    document.getElementById("search").addEventListener("input", function () {
+      const q = this.value.toLowerCase();
+      document.querySelectorAll(".issue-block").forEach(block => {
+        const t = block.querySelector(".issue-title").textContent.toLowerCase();
+        const b = block.querySelector(".issue-body").textContent.toLowerCase();
+        block.style.display = (t.includes(q) || b.includes(q)) ? "block" : "none";
+      });
     });
 
-    renderIssues(filtered);
-  });
-
-  loadIssues();
-</script>
+    loadIssues();
+  </script>
 
 </body>
 </html>
-
