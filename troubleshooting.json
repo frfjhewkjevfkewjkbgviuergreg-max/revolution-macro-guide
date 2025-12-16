@@ -1,14 +1,10 @@
 [
   {
-    "title": "my macro cant claim a hive and ive done evrything yall told me and it still wont work",
-    "category": "Other",
-    "tags": [
-      "Windows",
-      "SOLVED"
-    ],
-    "solution": "hdr",
-    "solution_html": "hdr",
-    "thread_url": "https://discord.com/channels/1265864190883532872/1440629881460232272",
-    "added_at": "2025-11-22T03:29:06.526360"
+    "title": "Issue title here",
+    "solution": "Your solution here (you can use multiple sentences)."
+  },
+  {
+    "title": "Another issue title",
+    "solution": "Another solution."
   }
 ]
